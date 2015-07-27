@@ -5,7 +5,7 @@ Originally phpReports is based on <a href="http://foundation.zurb.com/">foundati
 
 # Examples
 <ul>
-<li><a href="http:\\www.karate-in-neustrelitz.de">Karate-In-Neustrelitz.de</a></li>
+<li><a href="http://www.karate-in-neustrelitz.de">Karate-In-Neustrelitz.de</a></li>
 </ul>
 
 # Usage
