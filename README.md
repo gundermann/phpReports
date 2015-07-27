@@ -17,8 +17,11 @@ Furthermore you have to set up the configuration.php. There are several properti
 
 <h3>Properties</h3>
 <ul>
-<li>$report_folder = The folder where you save the reports</li>
-<li>$image_folder = The folder where you save the images for the reports</li>
+<li>$report_dir = The folder where you save the reports</li>
+<li>$image_dir = The folder where you save the images for the reports</li>
+<li>$report_parameter = The parameter you want to use to adress the report</li>
+<li>$headline_for_latest_events = The headline for the latest events</li>
+<li>$event_page = The file where you want to show the reports</li>
 </ul>
 
 Then you can create an overview of your reports. For this you have to use the function getLatestReports($count) from latestReports.php.
