@@ -3,6 +3,11 @@ This is a php-framework to hanlde chronological sorted reports inside a website.
 
 Originally phpReports is based on <a href="http://foundation.zurb.com/">foundation</a>. If you want to use any other web-framework you have to customize phpReports a bit.
 
+# Examples
+<ul>
+<li><a href="karate-in-neustrelitz.de">Karate-In-Neustrelitz.de</a></li>
+</ul>
+
 # Usage
 To use the management of phpReports each of your reports consists of two files. The first file is the short description of the report. The second is the full report. Additionally the names of these files has the following syntax:
 </br>
