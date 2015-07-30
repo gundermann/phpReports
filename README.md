@@ -27,6 +27,8 @@ The file which contains the short report has to follow this syntax:
 
 The "s" means "short".
 
+Have a look at folder model for examples of report-files.
+
 Furthermore you have to set up the Configuration.php. There are several properties you have the define.
 
 <h3>Properties</h3>
