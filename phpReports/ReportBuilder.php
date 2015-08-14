@@ -1,13 +1,14 @@
 <?php
-require './IdGenerator.php';
-include './Configuration.php';
+require './phpReports/IdGenerator.php';
+require './phpReports/Configurator.php';
 
 /*
  *	Returns file with the short version of the report.
  *	@params $number - the number of the report (number in filename)
  */
-public function getShortReport($number){
-	$reportDir = getReportsDirectory();
+ function getShortReport($number){
+	$config = new Configurator();
+	$reportDir = $config->getReportsDirectory();
 	$allFiles = scandir($reportDir, SCANDIR_SORT_DESCENDING); 
 	$count = 0;
 	$html = '';
@@ -32,7 +33,7 @@ public function getShortReport($number){
  * @params $year  - year of the report
  * @params $reportId - the filename of the report
  */
-public function getReportLinks($year, $reportId){
+ function getReportLinks($year, $reportId){
 $generator = new IdGenerator();
 $reports = findReports($year);
 $html = '<div class="hide-for-small" data-magellan-expedition="fixed"> <dl class="sub-nav">';
@@ -50,7 +51,7 @@ return $html;
  * Returns the content of the report file.
  * @params $reportId - the unique filename of the report
  */
-public function getReportContent($reportId){
+ function getReportContent($reportId){
 $generator = new IdGenerator();
 
 $report = findReport($reportId);
@@ -65,6 +66,7 @@ $html = '</br>';
 	</div>
 	</div>';
 	$html .= getPicPopup($popupId, substr($report, -11, 7));
+
 	return $html;
 }
 
@@ -72,7 +74,7 @@ $html = '</br>';
  * Returns the contents of the report-files in a year.
  * @params $year - the year of the reports
  */
-public function getReportContents($jahr){
+ function getReportContents($jahr){
 
 $generator = new IdGenerator();
 $reports = findReports($jahr);
@@ -94,27 +96,52 @@ for ($i = 0 ; $i < count($reports); $i++){
 return $html;
 }
 
+function getRequiredScriptsForReports(){
+$html = '<script src="js/vendor/jquery.js"></script>';
+$html .= ' <script src="js/foundation/foundation.js"></script>';
+$html .= '  <script src="js/foundation/foundation.magellan.js"></script>';
+$html .= '  <script src="js/foundation/foundation.reveal.js"></script>';
+$html .= '  <script src="js/foundation/foundation.orbit.js"></script>';
+$html .= '<script src="owl-carousel/owl.carousel.js"></script>';
+$html .= '   
+	<script>
+	$(document).foundation();
+	
+      $(document).ready(function() {
+
+      $(".owl").owlCarousel({
+        singleItem: true,
+        lazyLoad : true,
+        navigation : true
+      });
+
+    });
+    </script>';
+return $html;
+}
+
 /*
  * Returns the popup for the images of the report.
  * @params $reportId - the alphaID of the report
  * @params $reportName - the filename of the report
  */
-public function getPicPopup($reportId, $reportName){
+function getPicPopup($reportId, $reportName){
 $html = '<div id="'.$reportId.'" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
 <h2 id="Title">Bilder</h2>
    <div class="row">
 		<div class="large-12 columns">
-  <ul class="example-orbit-small" data-orbit>'.getPictures($reportName).'
+   <ul class="example-orbit-small" data-orbit>'.getPictures($reportName).'
   </ul>
   
   	</div>
     </div>
 	<a class="close-reveal-modal" aria-label="Close">&#215;</a>
-</div>';
+</div>
+';
 return $html;
 }
 
-private function getHeadline($report){
+function getHeadline($report){
 $content = substr(file_get_contents($report), 4,255);
 $lenght = strlen($content);
 $headline = '';
@@ -129,8 +156,9 @@ for( $i = 0; $i < $lenght; $i++){
 return $headline;
 }
 
-private function getPictures($reportName){
-$picDir = getImageDirectory().$reportName;
+function getPictures($reportName){
+$config = new Configurator();
+$picDir = $config->getImageDirectory()."/".$reportName;
 $allFiles = scandir($picDir); 
 $html = '';
 foreach ($allFiles as $file) {
@@ -138,7 +166,7 @@ $path = $picDir."/".$file;
 
 if( substr($path, -1,1) != '.'){
 $html .= '
-	<li> 
+		<li> 
 					<img src="'.$path.'"/> 
 					<div class="orbit-caption"> Image </div> 
 				</li>';
@@ -147,8 +175,9 @@ $html .= '
 	return $html;
 }
 
-private function findReports($year){
-	$reportDir = getReportsDirectory();
+function findReports($year){
+	$config = new Configurator();
+	$reportDir = $config->getReportsDirectory();
 	$reports = array();
 	$allFiles = scandir($reportDir, SCANDIR_SORT_DESCENDING); 
 	foreach ($allFiles as $file) {
@@ -162,9 +191,10 @@ private function findReports($year){
 	return $reports;
 }
 
-private function findReport($reportId){
+function findReport($reportId){
+	$config = new Configurator();
 	$generator = new IdGenerator();
-	$reportDir = getReportsDirectory();
+	$reportDir = $config->getReportsDirectory();
 	$allFiles = scandir($reportDir, SCANDIR_SORT_DESCENDING); 
 	foreach ($allFiles as $file) {
 		$path = $reportDir."/".$file;

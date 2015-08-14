@@ -1,17 +1,18 @@
 <?php
-include "./ReportBuilder.php";
-include "./Configuration.php";
+include "./phpReports/ReportBuilder.php";
+
 
 /**
  *  Returns the overviews of the latest events in form of html.
  * 	@param: count
  */
 function getLatestEvents($count) {
+	$config = new Configurator();
 // If you want to change the view you have the change to output-html in the following lines
     $html = '
 	<div class="row">
       <div class="large-12 columns">
-      	<h3 class="main-head" >'.getHeadlineLatestEvents().'</h3>
+      	<h3 class="main-head" >'.$config->getHeadlineLatestEvents().'</h3>
       </div>
     </div>';
 	
@@ -39,6 +40,7 @@ function getLatestEvents($count) {
  * 	@param: chronologicalEventNumber
  */
 function getOverview($chronoligicalEventNumber){
+	$config = new Configurator();
 	$generator = new IdGenerator();
 	$file = getShortReport($chronoligicalEventNumber);
 	$id = $generator->genAlphaId($file);
@@ -50,9 +52,9 @@ function getOverview($chronoligicalEventNumber){
 	// If you want to change the view you have the change to output-html in the following lines
 	$html .= '<div class="row">
 <div class="large-12 columns">
-	<a href="'.getEventPage().
+	<a href="'.$config->getEventPage().
 	//./event.php
-	'?'.getReportParameter().//'Report
+	'?'.$config->getReportParameter().//'Report
 	'='.$id.'" class="small button">Bericht</a>
 </div>
 </div>';
