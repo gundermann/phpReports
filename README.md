@@ -29,7 +29,7 @@ The "s" means "short".
 
 Have a look at folder model for examples of report-files.
 
-Furthermore you have to set up the Configuration.php. There are several properties you have the define.
+Furthermore you have to set up the Configurator.php. There are several properties you have the define.
 
 <h3>Properties</h3>
 <ul>
@@ -48,10 +48,10 @@ Otherwise you have to customize this php-file.
 <b>$count</b>: the amount of reports you want to be returned
 
 <h3>Link to full reports</h3>
-Usually you want to link the overview of a report to the whole report. Therefore you have to add an php-file which handle the view of the whole report. The path to this file you have to set on the $event_page variable in Configuration.php. Furthermore you have to set the $report_parameter also in Configuration.php. This parameter you have to use when you call the $event_page.
+Usually you want to link the overview of a report to the whole report. Therefore you have to add an php-file which handle the view of the whole report. The path to this file you have to set on the $event_page variable in Configurator.php. Furthermore you have to set the $report_parameter also in Configuration.php. This parameter you have to use when you call the $event_page.
 
 <h3>Link to images of reports</h3>
-In the view where you can see the whole report you may want to have a link to the images connected with this report. In this case you have to set the path of the general image-directory on the $image_dir variable in configuration.php. Images connected with the report have to copied at another folder inside the $image_dir with the name of the report (YYYYNNN). If you setup this you can use the function getPicPopup($reportId, $reportName) of ReportBuilder.php to create a link to a popup which contains the images of the report.
+In the view where you can see the whole report you may want to have a link to the images connected with this report. In this case you have to set the path of the general image-directory on the $image_dir variable in Configurator.php. Images connected with the report have to copied at another folder inside the $image_dir with the name of the report (YYYYNNN). If you setup this you can use the function getPicPopup($reportId, $reportName) of ReportBuilder.php to create a link to a popup which contains the images of the report.
 
 <b>$reportId</b>: the alphaId of the report </br>
 <b>$reportName</b>: the filename of the report
