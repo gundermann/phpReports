@@ -57,11 +57,18 @@ $generator = new IdGenerator();
 $report = findReport($reportId);
 $html = '</br>';
 	$popupId = $generator->genAlphaId($report);
-	$html .= '<div class="row panel"><div class="large-12 columns ">' 
-	.file_get_contents($report). ' <div class="row">
+	$config = new Configurator();
+	$content = file_get_contents($config->getReportNotFoundTemplate());
+	
+	if(file_exists($report)){
+		$content = file_get_contents($report).'<div class="row">
 	<div class="large-12 columns">
 	<a href="#" data-reveal-id="'.$popupId.'" class="small button">Bilder</a>	
-	</div>
+	</div>';	
+	}
+	
+	$html .= '<div class="row panel"><div class="large-12 columns ">' 
+	.$content.'
 	</div>
 	</div>
 	</div>';

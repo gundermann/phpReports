@@ -8,6 +8,8 @@ private $image_dir;
 private $report_parameter;
 private $headline_for_latest_events;
 private $event_page;
+private $report_not_found_temp;
+private $template_dir;
 
 
  function __construct() {
@@ -16,8 +18,14 @@ private $event_page;
 		$this->report_parameter = 'Report';
 		$this->headline_for_latest_events = 'Aktuelles';
 		$this->event_page = 'event.php';
+		$this->template_dir  = 'phpReports/template';
+		$this->report_not_found_temp = "/report_not_found.html";
 	}    
 
+public function getReportNotFoundTemplate(){
+	return $this->template_dir.$this->report_not_found_temp;
+}
+	
  public function getReportsDirectory(){
 	return $this->report_dir;
 }
