@@ -18,13 +18,21 @@ private function hexToAlpha($hex){
 	$lenght = strlen($hex);
 	$alphaId = '';
 	for( $i = 0; $i < $lenght; $i++){
-		$alphaId .= $this->mapHexToAlpha(substr($hex, $i, 1));
+		$partialHex = substr($hex, $i, 1);
+		$alphaId .= $this->mapHexToAlpha($partialHex);
 	}
 	return $alphaId;
  }
  
 private function mapHexToAlpha($hexSymbol){
 	switch($hexSymbol){
+		case 'a': return 'A';
+		case 'b': return 'B'; 
+		case 'c': return 'C'; 
+		case 'd': return 'D'; 
+		case 'e': return 'E'; 
+		case 'f': return 'F'; 
+		
 		case 0: return 'a';
 		case 1: return 'b'; 
 		case 2: return 'c'; 
@@ -35,12 +43,6 @@ private function mapHexToAlpha($hexSymbol){
 		case 7: return 'h'; 
 		case 8: return 'i'; 
 		case 9: return 'j'; 
-		case 'A': return $hexSymbol;
-		case 'B': return $hexSymbol; 
-		case 'C': return $hexSymbol; 
-		case 'D': return $hexSymbol; 
-		case 'E': return $hexSymbol; 
-		case 'F': return $hexSymbol; 
 	}
  }
  }
