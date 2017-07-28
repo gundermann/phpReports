@@ -3,6 +3,64 @@ include "./phpReports/ReportBuilder.php";
 
 
 /**
+ *  Returns an orbit of the latest events in html.
+ * 	@param: count
+ */
+function getReportOrbit($count){
+	$config = new Configurator();
+// If you want to change the view you have the change to output-html in the following lines
+    $html = '
+	<div class="row">
+      <div class="large-12 columns">
+      	<h3 class="main-head" >'.$config->getHeadlineLatestEvents().'</h3>
+      </div>
+    </div>';
+	
+	$html .= '<div class="row">
+				
+      <div class="large-12 columns">
+				<div class="orbit-container">
+				<ul class="" data-orbit data-options="timer_speed: 5000;slide_number: false;bullets: false;timer: true;">';
+    
+	for( $i = 0 ; $i < $count; $i++){
+		$html .= getOrbitItem($i+1);
+	}
+	
+	
+	$html .= '</ul>
+	</div>
+	</div>
+	</div>';
+
+ 
+	
+    return $html;
+}
+
+
+function getOrbitItem($chronoligicalEventNumber){
+	$config = new Configurator();
+	$generator = new IdGenerator();
+	$file = getShortReport($chronoligicalEventNumber);
+	$id = $generator->genAlphaId($file);
+	$html = '';
+	
+	// If you want to change the view you have the change to output-html in the following lines
+	$html .= 	'<li>
+		<div><h2>'.
+       getHeadline($file) 
+      .'</h2></div>
+      <a href="'.$config->getEventPage().'?'.$config->getReportParameter().	'='.$id.'">
+	<img src="'.getFirstPicture(substr($file, -12, 7)).'" alt="'.getHeadline($file).'" /></a>
+      
+    </li>';
+	
+	
+	return $html;
+}
+
+
+/**
  *  Returns the overviews of the latest events in form of html.
  * 	@param: count
  */

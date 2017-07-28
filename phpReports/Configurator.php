@@ -16,7 +16,7 @@ private $template_dir;
         $this->report_dir = 'reports'; 
 		$this->image_dir = 'img';
 		$this->report_parameter = 'Report';
-		$this->headline_for_latest_events = 'Aktuelles';
+		$this->headline_for_latest_events = '';
 		$this->event_page = 'event.php';
 		$this->template_dir  = 'phpReports/template';
 		$this->report_not_found_temp = "/report_not_found.html";

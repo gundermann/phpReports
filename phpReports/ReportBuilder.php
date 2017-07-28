@@ -2,6 +2,10 @@
 require './phpReports/IdGenerator.php';
 require './phpReports/Configurator.php';
 
+
+
+
+
 /*
  *	Returns file with the short version of the report.
  *	@params $number - the number of the report (number in filename)
@@ -74,6 +78,57 @@ $html = '</br>';
 	</div>';
 	$html .= getPicPopup($popupId, substr($report, -11, 7));
 
+	return $html;
+}
+
+
+function getOrbitItemForChonic($report){
+	$config = new Configurator();
+	$generator = new IdGenerator();
+	$id = $generator->genAlphaId($report);
+	$html = '';
+	
+	// If you want to change the view you have the change to output-html in the following lines
+	$html .= 	'<li>
+		<div><h2>'.
+       getHeadline($report) 
+      .'</h2></div>
+      <a href="'.$config->getEventPage().'?'.$config->getReportParameter().	'='.$id.'">
+	<img src="'.getFirstPicture(substr($report, -12, 8)).'" alt="'.getHeadline($report).'" /></a>
+      
+    </li>';
+	
+	
+	return $html;
+}
+
+/*
+ * Returns the contents of the report-files in a year in an orbit.
+ * @params $year - the year of the reports
+ */
+function getReportContentsAsOrbit($jahr){
+	$generator = new IdGenerator();
+	$reports = findReports($jahr);
+	
+	$html = '
+	</br>
+	</br>
+	<div class="row">
+				
+      <div class="large-12 columns">
+				<div class="orbit-container">
+				<ul class="" data-orbit data-options="timer_speed: 5000;slide_number: false;bullets: true;timer: true;">';
+				
+	for ($i = 0 ; $i < count($reports); $i++){
+		$html .= getOrbitItemForChonic($reports[$i]);
+	}
+				
+	$html .= '</ul>
+	</div>
+	</div>
+	</div>
+	</br>
+	</br>';
 	return $html;
 }
 
@@ -161,6 +216,14 @@ for( $i = 0; $i < $lenght; $i++){
 	}
 }
 return $headline;
+}
+
+
+function getFirstPicture($reportName){
+	$config = new Configurator();
+	$picDir = $config->getImageDirectory()."/".$reportName;
+	 
+	return $picDir."/".$file."/1.jpg";
 }
 
 function getPictures($reportName){
